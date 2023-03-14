@@ -15,7 +15,6 @@ public class MainScreen extends javax.swing.JFrame {
 
     ProjectController projectController;
     TaskController taskController;
-
     DefaultListModel projectModel;
 
     public MainScreen() {
@@ -376,35 +375,34 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 
-//costumizando os nomes dos itens da tabela e colocou a opção de possibilitar ordenar os itens
+//costumizando os nomes das colunas da tabela e colocou a opção de possibilitar ordenar os itens
     public void decorateTableTask() {
         tasksDescriptionTable.getTableHeader().setFont(new Font("Segoi UI", Font.BOLD, 14));
         tasksDescriptionTable.getTableHeader().setBackground(new Color(0, 153, 102));
         tasksDescriptionTable.getTableHeader().setForeground(new Color(255, 255, 255));
 
         tasksDescriptionTable.setAutoCreateRowSorter(true);
-
     }
 
-//MÉTODO PRA INICIALIZAR OS CONTROLLERS
+//MÉTODO PRA INICIALIZAR OS OBJETOS LOCAIS MODELO DE PROJETO E TAREFA
     public void initDataController() {
         projectController = new ProjectController();
         taskController = new TaskController();
     }
 
-//METODO QUE CRIA A ESTRUTURA QUE GUARDA ESSES PROJETOS LOCALMENTE, QUE É ESSA LISTA DEFAULT AI
+//METODO QUE CRIA A ESTRUTURA QUE GUARDA ESSES PROJETOS LOCALMENTE, QUE É ESSA LISTA DEFAULT
 // DEPOIS DE CRIADA, ELA CHAMA A FUNÇÃO QUE VAI POPULAR ESSA LISTA LOCAL
     public void initComponentsModel() {
         projectModel = new DefaultListModel();
         loadProjects();
     }
 
-//MÉTODO QUE PEGA OS PROJETOS DO BD E SALVA ELES NA LISTA LOCAL PROJECTMODEL 
-    public void loadProjects() {
+//MÉTODO QUE PEGA OS PROJETOS DO BD E POPULA A LISTA CRIADA LOCALMENTE (que depois vai ser renderizada pro usuario)
+     public void loadProjects() {
         List<Project> projects = projectController.getAll();
         projectModel.clear();
 
-        for (int i = 0; i < projects.size() - 1; i++) {
+        for (int i = 0; i < projects.size(); i++) {
             Project project = projects.get(i);
             projectModel.addElement(project);
         }
