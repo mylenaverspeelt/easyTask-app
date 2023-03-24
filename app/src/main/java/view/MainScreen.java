@@ -7,6 +7,8 @@ import controller.ProjectController;
 import controller.TaskController;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import model.Project;
@@ -22,7 +24,6 @@ public class MainScreen extends javax.swing.JFrame {
         decorateTableTask();
         initDataController();
         initComponentsModel();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -44,7 +45,7 @@ public class MainScreen extends javax.swing.JFrame {
         tasksIcon = new javax.swing.JLabel();
         sidebar = new javax.swing.JPanel();
         scrollpanel = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        projectsList = new javax.swing.JList<>();
         main = new javax.swing.JPanel();
         tasksDescription = new javax.swing.JScrollPane();
         tasksDescriptionTable = new javax.swing.JTable();
@@ -196,15 +197,15 @@ public class MainScreen extends javax.swing.JFrame {
         sidebar.setBackground(java.awt.Color.white);
         sidebar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jList1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        projectsList.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        projectsList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jList1.setFixedCellHeight(40);
-        jList1.setSelectionBackground(new java.awt.Color(0, 153, 102));
-        scrollpanel.setViewportView(jList1);
+        projectsList.setFixedCellHeight(40);
+        projectsList.setSelectionBackground(new java.awt.Color(0, 153, 102));
+        scrollpanel.setViewportView(projectsList);
 
         javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
         sidebar.setLayout(sidebarLayout);
@@ -311,10 +312,17 @@ public class MainScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//EVENTO DE CLICK QUANDO É CLICADO NO ICONE DE NOVO PROJETO, QUE ABRE A TELA DE CADASTRO DE PROJETOS
+//EVENTO DE CLICK QUANDO É CLICADO NO ICONE DE NOVO PROJETO, QUE ABRE A TELA DE CADASTRO DE PROJETOS. AO FECHAR A JANELA A LISTA DE PROJETOS É ATUALIZADA
     private void projectsIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_projectsIconMouseClicked
         ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
         projectDialogScreen.setVisible(true);
+
+        projectDialogScreen.addWindowListener(new WindowAdapter() {
+
+            public void windowClosed(WindowEvent e) {
+                loadProjects();
+            }
+        });
 
     }//GEN-LAST:event_projectsIconMouseClicked
 
@@ -355,7 +363,6 @@ public class MainScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel header;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel main;
     private javax.swing.JLabel noTasksIcon;
     private javax.swing.JPanel noTasksScreen;
@@ -364,6 +371,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel projects;
     private javax.swing.JLabel projectsIcon;
     private javax.swing.JLabel projectsLabel;
+    private javax.swing.JList<String> projectsList;
     private javax.swing.JScrollPane scrollpanel;
     private javax.swing.JPanel sidebar;
     private javax.swing.JLabel subtitle;
@@ -398,7 +406,7 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
 //MÉTODO QUE PEGA OS PROJETOS DO BD E POPULA A LISTA CRIADA LOCALMENTE (que depois vai ser renderizada pro usuario)
-     public void loadProjects() {
+    public void loadProjects() {
         List<Project> projects = projectController.getAll();
         projectModel.clear();
 
@@ -406,6 +414,6 @@ public class MainScreen extends javax.swing.JFrame {
             Project project = projects.get(i);
             projectModel.addElement(project);
         }
-        jListProjects.setModel(projectModel);
+        projectsList.setModel(projectModel);
     }
 }
