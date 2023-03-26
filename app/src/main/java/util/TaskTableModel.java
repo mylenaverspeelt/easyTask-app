@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import model.Task;
 
 //CLASSE PRA DEFINIR A TABELA DE TAREFAS QUE VAO SER EXIBIDAS
-//ESSA CLASSE É FILHA DESSA DEFAULT, DAI JÁ VEM OS 3 PRIMEIROS METODOS OBRIGATORIOS.
+//ESSA CLASSE É FILHA DESSA DEFAULT, DAI JÁ VEM OS 3 PRIMEIROS METODOS OBRIGATORIOS, AI SÓ SOBRESCREVE
 public class TaskTableModel extends AbstractTableModel {
 
     String[] columns = {"Name", "Description", "Deadline", "Completed", "Edit", "Delete"};
@@ -24,7 +24,7 @@ public class TaskTableModel extends AbstractTableModel {
         return columns.length;
     }
 
-//metodo pra aparecer os nomes das colunas
+//metodo pra aparecer os nomes das colunas. é um dos metodos herdados da classe pai
     @Override
     public String getColumnName(int columnIndex) {
     return columns[columnIndex];
