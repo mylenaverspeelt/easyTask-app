@@ -17,11 +17,14 @@ import util.TaskTableModel;
 
 public class MainScreen extends javax.swing.JFrame {
 
+//cria todas as variaveis de controller, de projetos, tarefas e o model da tabela de tarefas e a lista de projetos.
     ProjectController projectController;
     TaskController taskController;
     DefaultListModel projectsModel;
     TaskTableModel taskModel;
 
+
+//metodo construtor
     public MainScreen() {
         initComponents();
         decorateTableTask();
@@ -320,6 +323,8 @@ public class MainScreen extends javax.swing.JFrame {
         ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
         projectDialogScreen.setVisible(true);
 
+
+//esse listener é pra atualizar a lista de projetos assim que a janela for fechada
         projectDialogScreen.addWindowListener(new WindowAdapter() {
 
             public void windowClosed(WindowEvent e) {
@@ -401,7 +406,7 @@ public class MainScreen extends javax.swing.JFrame {
         taskController = new TaskController();
     }
 
-//METODO QUE CRIA A ESTRUTURA QUE GUARDA ESSES PROJETOS LOCALMENTE, QUE É ESSA LISTA DEFAULT
+//METODO QUE CRIA/INICIA A ESTRUTURA QUE GUARDA ESSES PROJETOS LOCALMENTE, QUE É ESSA LISTA DEFAULT E A TABLE MODEL
 // DEPOIS DE CRIADA, ELA CHAMA A FUNÇÃO QUE VAI POPULAR ESSA LISTA LOCAL
     public void initComponentsModel() {
         projectsModel = new DefaultListModel();
@@ -409,11 +414,12 @@ public class MainScreen extends javax.swing.JFrame {
 
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
-        loadTasks();
+        loadTasks(15);
     }
 
-    public void loadTasks() {
-        List<Task> tasks = taskController.getAll(15);
+//PEGA TODAS AS TAREFAS DO BD REFERENTES AO ID DO PROJETO QUE ELAS PERTENCEM E POPULA A LISTA LOCALMENTE
+    public void loadTasks(int idProject) {
+        List<Task> tasks = taskController.getAll(idProject);
         taskModel.setTasks(tasks);
 
     }
