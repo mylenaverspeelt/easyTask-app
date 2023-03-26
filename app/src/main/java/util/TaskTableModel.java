@@ -1,12 +1,13 @@
 package util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Task;
 
 //CLASSE PRA DEFINIR A TABELA DE TAREFAS QUE VAO SER EXIBIDAS
-//ESSA CLASSE É FILHA DESSA DEFAULT, DAI JÁ VEM OS 3 PRIMEIROS METODOS OBRIGATORIOS, AI SÓ SOBRESCREVE
+//ESSA CLASSE É FILHA DESSA DEFAULT, DAI JÁ VEM OS 3 PRIMEIROS METODOS OBRIGATORIOS, AI  SÓ SOBRESCREVE
 public class TaskTableModel extends AbstractTableModel {
 
     String[] columns = {"Name", "Description", "Deadline", "Completed", "Edit", "Delete"};
@@ -39,7 +40,8 @@ public class TaskTableModel extends AbstractTableModel {
             case 1:
                 return tasks.get(rowIndex).getDescription();
             case 2:
-                return tasks.get(rowIndex).getDeadline();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                return dateFormat.format(tasks.get(rowIndex).getDeadline());
             case 3:
                 return tasks.get(rowIndex).isIsCompleted();
             case 4:
