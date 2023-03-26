@@ -12,12 +12,14 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import model.Project;
+import util.TaskTableModel;
 
 public class MainScreen extends javax.swing.JFrame {
 
     ProjectController projectController;
     TaskController taskController;
-    DefaultListModel projectModel;
+    DefaultListModel projectsModel;
+    TaskTableModel taskModel;
 
     public MainScreen() {
         initComponents();
@@ -48,7 +50,7 @@ public class MainScreen extends javax.swing.JFrame {
         projectsList = new javax.swing.JList<>();
         main = new javax.swing.JPanel();
         tasksDescription = new javax.swing.JScrollPane();
-        tasksDescriptionTable = new javax.swing.JTable();
+        jTableTasks = new javax.swing.JTable();
 
         noTasksScreen.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -227,8 +229,8 @@ public class MainScreen extends javax.swing.JFrame {
         main.setBackground(java.awt.Color.white);
         main.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tasksDescriptionTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tasksDescriptionTable.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTasks.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTableTasks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -254,11 +256,11 @@ public class MainScreen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tasksDescriptionTable.setGridColor(new java.awt.Color(204, 204, 204));
-        tasksDescriptionTable.setRowHeight(50);
-        tasksDescriptionTable.setSelectionBackground(new java.awt.Color(204, 255, 204));
-        tasksDescriptionTable.setShowHorizontalLines(true);
-        tasksDescription.setViewportView(tasksDescriptionTable);
+        jTableTasks.setGridColor(new java.awt.Color(204, 204, 204));
+        jTableTasks.setRowHeight(50);
+        jTableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
+        jTableTasks.setShowHorizontalLines(true);
+        tasksDescription.setViewportView(jTableTasks);
 
         javax.swing.GroupLayout mainLayout = new javax.swing.GroupLayout(main);
         main.setLayout(mainLayout);
@@ -363,6 +365,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel header;
+    private javax.swing.JTable jTableTasks;
     private javax.swing.JPanel main;
     private javax.swing.JLabel noTasksIcon;
     private javax.swing.JPanel noTasksScreen;
@@ -377,7 +380,6 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JLabel subtitle;
     private javax.swing.JPanel tasks;
     private javax.swing.JScrollPane tasksDescription;
-    private javax.swing.JTable tasksDescriptionTable;
     private javax.swing.JLabel tasksIcon;
     private javax.swing.JLabel tasksLabel;
     private javax.swing.JLabel title;
@@ -385,11 +387,11 @@ public class MainScreen extends javax.swing.JFrame {
 
 //costumizando os nomes das colunas da tabela e colocou a opção de possibilitar ordenar os itens
     public void decorateTableTask() {
-        tasksDescriptionTable.getTableHeader().setFont(new Font("Segoi UI", Font.BOLD, 14));
-        tasksDescriptionTable.getTableHeader().setBackground(new Color(0, 153, 102));
-        tasksDescriptionTable.getTableHeader().setForeground(new Color(255, 255, 255));
+        jTableTasks.getTableHeader().setFont(new Font("Segoi UI", Font.BOLD, 14));
+        jTableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
+        jTableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
 
-        tasksDescriptionTable.setAutoCreateRowSorter(true);
+        jTableTasks.setAutoCreateRowSorter(true);
     }
 
 //MÉTODO PRA INICIALIZAR OS OBJETOS LOCAIS MODELO DE PROJETO E TAREFA
@@ -401,19 +403,22 @@ public class MainScreen extends javax.swing.JFrame {
 //METODO QUE CRIA A ESTRUTURA QUE GUARDA ESSES PROJETOS LOCALMENTE, QUE É ESSA LISTA DEFAULT
 // DEPOIS DE CRIADA, ELA CHAMA A FUNÇÃO QUE VAI POPULAR ESSA LISTA LOCAL
     public void initComponentsModel() {
-        projectModel = new DefaultListModel();
+        projectsModel = new DefaultListModel();
         loadProjects();
+
+        taskModel = new TaskTableModel();
+        jTableTasks.setModel(taskModel);
     }
 
 //MÉTODO QUE PEGA OS PROJETOS DO BD E POPULA A LISTA CRIADA LOCALMENTE (que depois vai ser renderizada pro usuario)
     public void loadProjects() {
         List<Project> projects = projectController.getAll();
-        projectModel.clear();
+        projectsModel.clear();
 
         for (int i = 0; i < projects.size(); i++) {
             Project project = projects.get(i);
-            projectModel.addElement(project);
+            projectsModel.addElement(project);
         }
-        projectsList.setModel(projectModel);
+        projectsList.setModel(projectsModel);
     }
 }

@@ -38,7 +38,7 @@ public class TaskTableModel extends AbstractTableModel {
             case 6:
                 return "";
             default:
-                throw new AssertionError();
+                return "Dado não encontrado";
         }
     }
 
