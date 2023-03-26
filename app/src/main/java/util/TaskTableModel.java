@@ -1,4 +1,3 @@
-
 package util;
 
 import java.util.ArrayList;
@@ -6,25 +5,41 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Task;
 
-public class TaskTableModel extends AbstractTableModel{
+public class TaskTableModel extends AbstractTableModel {
 
-String[] columns = {"Name", "Description", "Deadline", "Completed", "Edit", "Delete"};
-List<Task> tasks = new ArrayList();
+    String[] columns = {"Name", "Description", "Deadline", "Completed", "Edit", "Delete"};
+    List<Task> tasks = new ArrayList();
 
-
+// retorna o tanto de tarefas que tiver na lista, que serão as linhas da tabela
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return tasks.size();
     }
 
+// retorna as colunas 
     @Override
     public int getColumnCount() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return columns.length;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        switch (columnIndex) {
+            case 1:
+                return tasks.get(rowIndex).getName();
+            case 2:
+                return tasks.get(rowIndex).getDescription();
+            case 3:
+                return tasks.get(rowIndex).getDeadline();
+            case 4:
+                return tasks.get(rowIndex).isIsCompleted();
+            case 5:
+                return "";
+            case 6:
+                return "";
+            default:
+                throw new AssertionError();
+        }
     }
-    
+
 }
