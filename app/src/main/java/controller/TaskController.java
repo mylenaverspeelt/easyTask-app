@@ -24,7 +24,7 @@ public class TaskController {
             statement.setInt(1, task.getIdProject());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
-            statement.setBoolean(4, task.isIsCompleted());
+            statement.setBoolean(4, task.isCompleted());
             statement.setString(5, task.getNotes());
             statement.setDate(6, new Date(task.getDeadline().getTime()));
             statement.setDate(7, new Date(task.getCreatedAt().getTime()));
@@ -37,13 +37,8 @@ public class TaskController {
         }
     }
 
-//
-//
 //                  ATENÇÃO::::::::: METODO UPDATE NAO TA FUNCIONANDO
 //
-
-
-
     public void update(Task task) {
 
         String sql = "UPDATE tasks SET idProject = ?, name = ?, description = ? , completed = ?, notes = ?, deadline = ?,  createdAt = ?, updatedAt = ? WHERE id = ?";
@@ -56,17 +51,17 @@ public class TaskController {
             statement.setInt(1, task.getIdProject());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
+            statement.setBoolean(5, task.isCompleted());
             statement.setString(4, task.getNotes());
-            statement.setBoolean(5, task.isIsCompleted());
             statement.setDate(6, new java.sql.Date(task.getDeadline().getTime()));
-            statement.setDate(7,  new java.sql.Date(task.getCreatedAt().getTime()));
+            statement.setDate(7, new java.sql.Date(task.getCreatedAt().getTime()));
             statement.setDate(8, new java.sql.Date(task.getUpdatedAt().getTime()));
             statement.setInt(9, task.getId());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar a tarefa: " + e.getMessage(), e);
-        }finally {
-           ConnectionFactory.closeConnection(connection, statement);
+        } finally {
+            ConnectionFactory.closeConnection(connection, statement);
         }
 
     }
@@ -109,8 +104,8 @@ public class TaskController {
                 task.setIdProject(resultSet.getInt("idProject"));
                 task.setName(resultSet.getString("name"));
                 task.setDescription(resultSet.getString("description"));
-                task.setNotes(resultSet.getString("notes"));
                 task.setIsCompleted(resultSet.getBoolean("completed"));
+                task.setNotes(resultSet.getString("notes"));
                 task.setDeadline(resultSet.getDate("deadline"));
                 task.setCreatedAt(resultSet.getDate("createdAt"));
                 task.setUpdatedAt(resultSet.getDate("updatedAt"));

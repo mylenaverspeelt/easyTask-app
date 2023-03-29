@@ -8,7 +8,6 @@ import model.Task;
 
 //CLASSE PRA DEFINIR A TABELA DE TAREFAS QUE VAO SER EXIBIDAS
 //ESSA CLASSE É FILHA DESSA DEFAULT, DAI JÁ VEM OS 3 PRIMEIROS METODOS OBRIGATORIOS, AI  SÓ SOBRESCREVE
-//ESSA CLASSE É FILHA DESSA DEFAULT, DAI JÁ VEM OS 3 PRIMEIROS METODOS OBRIGATORIOS.
 public class TaskTableModel extends AbstractTableModel {
 
     String[] columns = {"Name", "Description", "Deadline", "Completed", "Edit", "Delete"};
@@ -27,13 +26,11 @@ public class TaskTableModel extends AbstractTableModel {
     }
 
 //metodo pra aparecer os nomes das colunas. é um dos metodos herdados da classe pai
-//metodo pra aparecer os nomes das colunas
     @Override
     public String getColumnName(int columnIndex) {
         return columns[columnIndex];
     }
 
-<<<<<<< HEAD
 //metodo pra tornar editavel apenas a coluna 3 que é a do completado
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -54,13 +51,6 @@ public class TaskTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         tasks.get(rowIndex).setIsCompleted((boolean) aValue);
-=======
-    @Override
-
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-
-        return columnIndex == 3;
->>>>>>> c56dc266a29713f89a4b123a15e238a14a39dd11
     }
 
 //metodo pra pegar as informações de cada item da linha
@@ -75,7 +65,7 @@ public class TaskTableModel extends AbstractTableModel {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 return dateFormat.format(tasks.get(rowIndex).getDeadline());
             case 3:
-                return tasks.get(rowIndex).isIsCompleted();
+                return tasks.get(rowIndex).isCompleted();
             case 4:
                 return "";
             case 5:

@@ -23,7 +23,6 @@ public class MainScreen extends javax.swing.JFrame {
     DefaultListModel projectsModel;
     TaskTableModel taskModel;
 
-
 //metodo construtor
     public MainScreen() {
         initComponents();
@@ -264,6 +263,11 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
         jTableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableTasks.setShowHorizontalLines(true);
+        jTableTasks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTasksMouseClicked(evt);
+            }
+        });
         tasksDescription.setViewportView(jTableTasks);
 
         javax.swing.GroupLayout mainLayout = new javax.swing.GroupLayout(main);
@@ -323,7 +327,6 @@ public class MainScreen extends javax.swing.JFrame {
         ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
         projectDialogScreen.setVisible(true);
 
-
 //esse listener é pra atualizar a lista de projetos assim que a janela for fechada
         projectDialogScreen.addWindowListener(new WindowAdapter() {
 
@@ -342,6 +345,23 @@ public class MainScreen extends javax.swing.JFrame {
         taskDialogScreen.setVisible(true);
 
     }//GEN-LAST:event_tasksIconMouseClicked
+
+// quando há um click nessa tabela esse metodo verifica em que ponto da tela foi o evento de click. caso tenha sido na coluna 3, ele localiza em qual linha foi o evento e seta pro controller salvar no bd. 
+    private void jTableTasksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTasksMouseClicked
+        int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
+        int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
+
+        switch (columnIndex) {
+            case 3:
+                Task task = taskModel.getTasks().get(rowIndex);
+                taskController.update(task);
+                break;
+            default:
+                throw new AssertionError();
+        }
+
+
+    }//GEN-LAST:event_jTableTasksMouseClicked
 
     public static void main(String args[]) {
         try {
@@ -414,7 +434,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
-        loadTasks(15);
+        loadTasks(19);
     }
 
 //PEGA TODAS AS TAREFAS DO BD REFERENTES AO ID DO PROJETO QUE ELAS PERTENCEM E POPULA A LISTA LOCALMENTE

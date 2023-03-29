@@ -10,18 +10,18 @@ import model.Project;
 import model.Task;
 
 public class TaskDialogScreen extends javax.swing.JDialog {
-    
+
     TaskController controller;
     Project project;
-    
+
     public TaskDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         controller = new TaskController();
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -180,35 +180,34 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void headerIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerIconMouseClicked
-        
+
         try {
             Task task = new Task();
-//            task.setIdProject(15);
+            task.setIdProject(19);
 //            task.setIdProject(project.getId());
             task.setName(inputName.getText());
             task.setDescription(inputDescription.getText());
-            task.setNotes(inputNotes.getText());
             task.setIsCompleted(false);
 //é necessário formatar a data pra o formato escolhido lá no formaterFactory do componente, depois passa a data formatada pro objeto e salva a tarefa no controller.
+            task.setNotes(inputNotes.getText());
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
             Date deadline = null;
             deadline = dateFormat.parse(inputDeadline.getText());
             task.setDeadline(deadline);
             controller.save(task);
             JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso!");
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            
+
         }
-        
+
         this.dispose();
-        
+
 
     }//GEN-LAST:event_headerIconMouseClicked
-    
+
     public static void main(String args[]) {
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Java swing".equals(info.getName())) {
@@ -263,5 +262,5 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     public void setProject(Project project) {
         this.project = project;
     }
-    
+
 }
