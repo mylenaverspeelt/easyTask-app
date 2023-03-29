@@ -33,6 +33,7 @@ public class TaskTableModel extends AbstractTableModel {
         return columns[columnIndex];
     }
 
+<<<<<<< HEAD
 //metodo pra tornar editavel apenas a coluna 3 que é a do completado
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -53,6 +54,13 @@ public class TaskTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         tasks.get(rowIndex).setIsCompleted((boolean) aValue);
+=======
+    @Override
+
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+
+        return columnIndex == 3;
+>>>>>>> c56dc266a29713f89a4b123a15e238a14a39dd11
     }
 
 //metodo pra pegar as informações de cada item da linha
