@@ -1,0 +1,84 @@
+[33mcommit 1cdc6c3160ad7acbf5613acc9788f125c07fbbda[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Mon Mar 27 09:36:56 2023 -0300
+
+    aula 16H: cria o metodo getColumnClass na classe TaskTableModel
+
+[33mcommit c56dc266a29713f89a4b123a15e238a14a39dd11[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Mon Mar 27 08:26:34 2023 -0300
+
+    aula 16G: torna os campos da coluna 3 da tabela editavel
+
+[33mcommit f30ae14ba95f8f75c3befd576ccd8849b5f37617[m
+Merge: 9efb4d2 724a125
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Sun Mar 26 11:01:31 2023 -0300
+
+    aula 16E
+
+[33mcommit 9efb4d29c88a8f6560ee477a4caf1ab91fc2b2b5[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Sun Mar 26 10:56:25 2023 -0300
+
+    aula 16F: modificando a forma como a data é exibida no TaskTableModel
+
+[33mcommit e500974f39375395c0c96308dc48ebbcf0f9e1cc[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Sun Mar 26 09:04:01 2023 -0300
+
+    aula 16E: refatoraçao da classe TaskTableModel
+
+[33mcommit ae5c3192eaded1f7dbd1e1dd175ec3f90405a605[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Sun Mar 26 09:00:34 2023 -0300
+
+    aula 16E: refatoraçao da classe TaskTableModel
+
+[33mcommit 724a12552ff58dc714d23aa3acaf0474fe5ada30[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Sun Mar 26 09:00:34 2023 -0300
+
+    aula 15E: refatoraçao da classe TaskTableModel
+
+[33mcommit b97b2300a32202c7ecec4bbcff610e81f4383422[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Sun Mar 26 08:39:45 2023 -0300
+
+    aula 16D: cria o metodo loadProjects na mainscreen e faz os getters e setters do TaskTableModel
+
+[33mcommit b87798fcb358a9c847c1e4a883286709b82316d3[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Sun Mar 26 08:32:03 2023 -0300
+
+    aula 15C: implementa o model da tabela de descriçao das tarefas na mainscreen
+
+[33mcommit 9cc53c5d0a9f0f4692298f65ad001e5f651b3065[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Sun Mar 26 08:21:18 2023 -0300
+
+    aula 16B: setando os metodos herdados na classe TaskTableModel
+
+[33mcommit d585df6466d3d7ef67b5c42d07a2ecc5024b37ba[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Sun Mar 26 08:11:57 2023 -0300
+
+    aula 16A: create TaskTableModel
+
+[33mcommit 77abcf671fa336d8d85832091c2ba2bcef3d1460[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Fri Mar 24 11:06:14 2023 -0300
+
+    aula 15D
+
+[33mcommit ec3cd07be4383e7a2f4e9032f32998882b8a44a5[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Tue Mar 14 10:12:57 2023 -0300
+
+    aula 15C
+
+[33mcommit 4a4bd69dbe2cf8b67ebf7eaee10691713dd84423[m
+Author: mylenaverspeelt <mylena49@hotmail.com>
+Date:   Tue Mar 14 09:38:06 2023 -0300
+
+    first commit
