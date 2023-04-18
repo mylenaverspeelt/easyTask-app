@@ -85,21 +85,62 @@ public class TaskController {
     }
 
 //busca todas as tarefas de determinado projeto pelo id dele. no caso é um select na tabela, dai tudo que retornar desse select fica no resultSet. tambem criouma lista pra ser exibida quando o getAll for chamado. nesse while é como se fosse copiando linha a linha da tabela e setando no objeto task pra botar eles nalista, tipo uma lista copia da tabela.
-    public List<Task> getAll(int idProject) {
+//    public List<Task> getAll(int idProject) {
+//
+//        String sql = "SELECT * FROM tasks";
+//        Connection connection = null;
+//        PreparedStatement statement = null;
+//        ResultSet resultSet = null;
+//        List<Task> tasks = new ArrayList<>();
+//
+//        try {
+//            connection = ConnectionFactory.getConnection();
+//            statement = connection.prepareStatement(sql);
+//            resultSet = statement.executeQuery();
+//
+//            while (resultSet.next()) {     //enquanto ouver outro registro na tabela
+//                Task task = new Task();
+//                task.setId(resultSet.getInt("id"));
+//                task.setIdProject(resultSet.getInt("idProject"));
+//                task.setName(resultSet.getString("name"));
+//                task.setDescription(resultSet.getString("description"));
+//                task.setIsCompleted(resultSet.getBoolean("completed"));
+//                task.setNotes(resultSet.getString("notes"));
+//                task.setDeadline(resultSet.getDate("deadline"));
+//                task.setCreatedAt(resultSet.getDate("createdAt"));
+//                task.setUpdatedAt(resultSet.getDate("updatedAt"));
+//
+//                tasks.add(task);
+//            }
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Erro ao mostrar as tarefas: " + e.getMessage(), e);
+//        } finally {
+//            ConnectionFactory.closeConnection(connection, statement, resultSet);
+//        }
+//
+//        return tasks;
+//    }
 
-        String sql = "SELECT * FROM tasks";
+    public List<Task> getFindTaskByIdproject(int id) {
+        String sql = "SELECT * FROM tasks where idProject = ?";
+
+        List<Task> tasks = new ArrayList<>();
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        List<Task> tasks = new ArrayList<>();
 
         try {
             connection = ConnectionFactory.getConnection();
             statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
             resultSet = statement.executeQuery();
 
-            while (resultSet.next()) {     //enquanto ouver outro registro na tabela
+            while (resultSet.next()) {
+
                 Task task = new Task();
+
                 task.setId(resultSet.getInt("id"));
                 task.setIdProject(resultSet.getInt("idProject"));
                 task.setName(resultSet.getString("name"));
@@ -112,13 +153,24 @@ public class TaskController {
 
                 tasks.add(task);
             }
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao mostrar as tarefas: " + e.getMessage(), e);
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao buscar as tarefas", ex);
         } finally {
-            ConnectionFactory.closeConnection(connection, statement, resultSet);
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException("Erro ao fechar a conexão", ex);
+            }
         }
-
         return tasks;
     }
+
 }

@@ -452,12 +452,19 @@ public class MainScreen extends javax.swing.JFrame {
 
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
-        loadTasks(19);
+
+        if (!projectsModel.isEmpty()) {
+            projectsList.setSelectedIndex(0);
+            int projectIndex = projectsList.getSelectedIndex();
+            Project project = (Project) projectsModel.get(projectIndex);
+            loadTasks(project.getId());
+        }
     }
 
 //PEGA TODAS AS TAREFAS DO BD REFERENTES AO ID DO PROJETO QUE ELAS PERTENCEM E POPULA A LISTA LOCALMENTE
     public void loadTasks(int idProject) {
-        List<Task> tasks = taskController.getAll(idProject);
+
+        List<Task> tasks = taskController.getFindTaskByIdproject(idProject);
         taskModel.setTasks(tasks);
 
         showTableTasks(!tasks.isEmpty());
