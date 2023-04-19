@@ -350,7 +350,9 @@ public class MainScreen extends javax.swing.JFrame {
     private void tasksIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tasksIconMouseClicked
 
         TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
-//        taskDialogScreen.setProject(null);
+        int projectIndex = projectsList.getSelectedIndex();
+        Project project = (Project) projectsModel.get(projectIndex);
+        taskDialogScreen.setProject(project);
         taskDialogScreen.setVisible(true);
 
     }//GEN-LAST:event_tasksIconMouseClicked
@@ -464,7 +466,7 @@ public class MainScreen extends javax.swing.JFrame {
 //PEGA TODAS AS TAREFAS DO BD REFERENTES AO ID DO PROJETO QUE ELAS PERTENCEM E POPULA A LISTA LOCALMENTE
     public void loadTasks(int idProject) {
 
-        List<Task> tasks = taskController.getFindTaskByIdproject(idProject);
+        List<Task> tasks = taskController.findTasksByIdProject(idProject);
         taskModel.setTasks(tasks);
 
         showTableTasks(!tasks.isEmpty());

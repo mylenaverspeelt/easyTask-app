@@ -122,7 +122,7 @@ public class TaskController {
 //        return tasks;
 //    }
 
-    public List<Task> getFindTaskByIdproject(int id) {
+    public List<Task> findTasksByIdProject(int id) {
         String sql = "SELECT * FROM tasks where idProject = ?";
 
         List<Task> tasks = new ArrayList<>();

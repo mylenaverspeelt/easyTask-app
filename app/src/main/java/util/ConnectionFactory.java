@@ -39,8 +39,8 @@ public class ConnectionFactory {
             throw new RuntimeException("Erro ao fechar conexão com o banco de dados", e);
         }
     }
-//é a mesma classe de cima porem que além do connection tbm encerra o statement
 
+//é a mesma classe de cima porem que além do connection tbm encerra o statement
     public static void closeConnection(Connection connection, PreparedStatement statement) {
         try {
             if (connection != null) {
@@ -55,6 +55,7 @@ public class ConnectionFactory {
         }
     }
 
+//é a mesma classe de cima porem que além do connection e do statement, encerra tambem mo resultSet
     public static void closeConnection(Connection connection, PreparedStatement statement, ResultSet resultSet) {
         try {
             if (connection != null) {
