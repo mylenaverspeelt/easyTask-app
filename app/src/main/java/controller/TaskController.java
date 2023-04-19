@@ -67,7 +67,7 @@ public class TaskController {
     }
 
 //faz uma conexao com o banco, passa o statement substituindo o ? pelo id do parametro, executa, se der erro trata ele e depois fecha a conexão.
-    public void removeById(int taskId) throws SQLException {
+    public void removeById(int taskId){
         String sql = "DELETE FROM tasks WHERE id = ?";
         Connection connection = null;
         PreparedStatement statement = null;
