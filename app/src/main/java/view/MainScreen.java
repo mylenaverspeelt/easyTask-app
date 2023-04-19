@@ -355,6 +355,16 @@ public class MainScreen extends javax.swing.JFrame {
         taskDialogScreen.setProject(project);
         taskDialogScreen.setVisible(true);
 
+        taskDialogScreen.addWindowListener(new WindowAdapter() {
+
+            public void windowClosed(WindowEvent e) {
+                int projectIndex = projectsList.getSelectedIndex();
+                Project project = (Project) projectsModel.get(projectIndex);
+                loadTasks(project.getId());
+            }
+        });
+
+
     }//GEN-LAST:event_tasksIconMouseClicked
 
 // quando há um click nessa tabela esse metodo verifica em que ponto da tela foi o evento de click. caso tenha sido na coluna 3, ele localiza em qual linha foi o evento e seta pro controller salvar no bd. 
