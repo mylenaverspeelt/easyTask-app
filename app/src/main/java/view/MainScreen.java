@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import model.Project;
 import model.Task;
 import util.TaskTableModel;
+import util.deadlineTableRender;
 
 public class MainScreen extends javax.swing.JFrame {
 
@@ -26,9 +27,9 @@ public class MainScreen extends javax.swing.JFrame {
 //metodo construtor
     public MainScreen() {
         initComponents();
-        decorateTableTask();
         initDataController();
         initComponentsModel();
+        decorateTableTask();
     }
 
     @SuppressWarnings("unchecked")
@@ -433,7 +434,9 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
         jTableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
 
-        jTableTasks.setAutoCreateRowSorter(true);
+//        jTableTasks.setAutoCreateRowSorter(true);;
+
+        jTableTasks.getColumnModel().getColumn(2).setCellRenderer(new deadlineTableRender());
     }
 
 //MÉTODO PRA INICIALIZAR OS OBJETOS LOCAIS MODELO DE PROJETO E TAREFA
