@@ -182,26 +182,30 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private void headerIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerIconMouseClicked
 
         try {
-            Task task = new Task();
+            if (inputName.getText().isEmpty() && inputDeadline.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(rootPane, "Tarefa não foi salva pois existem campos obrigatorios a serem preenchidos");
+            } else {
+                Task task = new Task();
 //            task.setIdProject(22);
-            task.setIdProject(project.getId());
-            task.setName(inputName.getText());
-            task.setDescription(inputDescription.getText());
-            task.setIsCompleted(false);
+                task.setIdProject(project.getId());
+                task.setName(inputName.getText());
+                task.setDescription(inputDescription.getText());
+                task.setIsCompleted(false);
 //é necessário formatar a data pra o formato escolhido lá no formaterFactory do componente, depois passa a data formatada pro objeto e salva a tarefa no controller.
-            task.setNotes(inputNotes.getText());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
-            Date deadline = null;
-            deadline = dateFormat.parse(inputDeadline.getText());
-            task.setDeadline(deadline);
-            controller.save(task);
-            JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso!");
+                task.setNotes(inputNotes.getText());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy");
+                Date deadline = null;
+                deadline = dateFormat.parse(inputDeadline.getText());
+                task.setDeadline(deadline);
+                controller.save(task);
+                JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso!");
+                this.dispose();
+
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
 
         }
-
-        this.dispose();
 
 
     }//GEN-LAST:event_headerIconMouseClicked

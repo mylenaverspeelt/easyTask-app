@@ -1,12 +1,10 @@
 package view;
 
 //classe projectDialogScreen que extende do javaswing,tem o metodo construtor, o metodo de inicializar os componentes, metodo de click pra salvar um novo projeto(que pega o input do nome e da descriçao e salva no bd).
-
 //criou-se um project controller no construtor, é ele quem cria um novo objeto projeto pra ser adicionado no BD (olhar na pasta controller).
-    
-
 import controller.ProjectController;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import model.Project;
 
 public class ProjectDialogScreen extends javax.swing.JDialog {
@@ -151,15 +149,20 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
 //QUANDO CLICA NO BOTAO SALVA O NOME E A DESCRIÇAO (OS INPUTS) DO NOVO PROJETO NO BANCO DE DADOS
     private void headericonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headericonMouseClicked
         try {
-            Project project = new Project();
-            project.setName(inputName.getText());
-            project.setDescription(inputDescription.getText());
-            controller.save(project);
-            JOptionPane.showMessageDialog(rootPane, "Projeto salvo com sucesso!");
+            if (!inputName.getText().equals("")){
+                Project project = new Project();
+                project.setName(inputName.getText());
+                project.setDescription(inputDescription.getText());
+                controller.save(project);
+                JOptionPane.showMessageDialog(rootPane, "Project saved successfully!");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Project wasn't saved successfully. The field 'name' is required");
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        this.dispose();
+
     }//GEN-LAST:event_headericonMouseClicked
 
     public static void main(String args[]) {
