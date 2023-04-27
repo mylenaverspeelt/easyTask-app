@@ -1,8 +1,5 @@
 package view;
 
-//classe mainscreen que extende do componente javaswing, tem o metodo construtor, tem o metodo de quando é clicado no icone de novo projeto, tem o metodo de quando é clicado numa nova tarefa, tem o médoto para estilizar coisas que não dão pra ser estilizadas na interface gráfica.
-//no metodo construtor coloca todos os metodos que devem rodar ao inicializar o componente.
-//pra carregar as info do bd pra um componente javaswing, ai utiliza um objeto model que já vem default do java.
 import controller.ProjectController;
 import controller.TaskController;
 import java.awt.Color;
@@ -19,13 +16,11 @@ import util.TaskTableModel;
 
 public class MainScreen extends javax.swing.JFrame {
 
-//cria todas as variaveis de controller, de projetos, tarefas e o model da tabela de tarefas e a lista de projetos.
     ProjectController projectController;
     TaskController taskController;
     DefaultListModel projectsModel;
     TaskTableModel taskModel;
 
-//metodo construtor
     public MainScreen() {
         initComponents();
         initDataController();
@@ -309,7 +304,7 @@ public class MainScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//EVENTO DE CLICK QUANDO É CLICADO NO ICONE DE NOVO PROJETO, QUE ABRE A TELA DE CADASTRO DE PROJETOS. AO FECHAR A JANELA A LISTA DE PROJETOS É ATUALIZADA
+//ABRE TELA DE CADASTRO DE NOVO PROJETO
     private void projectsIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_projectsIconMouseClicked
         ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, rootPaneCheckingEnabled);
         projectDialogScreen.setVisible(true);
@@ -324,7 +319,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_projectsIconMouseClicked
 
-//além de abrir a tela, tambem seta qual o projeto referente aquela tarefa
+// PEGA QUAL O PROJETO DA TAREFA EM QUESTÃO E ABRE A TELA DE CADASTRO DE NOVA TAREFA AO CLICAR NO ICONE + DAS TASKS
     private void tasksIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tasksIconMouseClicked
 
         TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
@@ -334,18 +329,16 @@ public class MainScreen extends javax.swing.JFrame {
         taskDialogScreen.setVisible(true);
 
         taskDialogScreen.addWindowListener(new WindowAdapter() {
-
+//esse listener é pra atualizar a lista de projetos assim que a janela for fechada
             public void windowClosed(WindowEvent e) {
                 int projectIndex = projectsList.getSelectedIndex();
                 Project project = (Project) projectsModel.get(projectIndex);
                 loadTasks(project.getId());
             }
         });
-
-
     }//GEN-LAST:event_tasksIconMouseClicked
 
-// quando há um click nessa tabela esse metodo verifica em que ponto da tela foi o evento de click. caso tenha sido na coluna 3, ele localiza em qual linha foi o evento e seta pro controller salvar no bd. 
+//EVENTO DE CLICK EM ALGUM LOCAL DA TABELA DE TAREFAS E SUA DEVIDA AÇÃO
     private void jTableTasksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTasksMouseClicked
         int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
         int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
@@ -353,7 +346,6 @@ public class MainScreen extends javax.swing.JFrame {
 
         switch (columnIndex) {
             case 3:
-
                 taskController.update(task);
                 break;
             case 5:
@@ -372,7 +364,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTableTasksMouseClicked
 
-//metodo pra quando um projeto for clicado, exibir se ele tem tarefas ou nao
+//EXIBIR TAREFAS DE UM PROJETO QUANDO ELE FOR CLICADO
     private void projectsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_projectsListMouseClicked
 
         int projectIndex = projectsList.getSelectedIndex();
@@ -429,7 +421,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JScrollPane tasksScrollPane;
     // End of variables declaration//GEN-END:variables
 
-//costumizando os nomes das colunas da tabela e colocou a opção de possibilitar ordenar os itens
+// CUSTOMIZAÇÃO DA TABELA DE TAREFAS
     public void decorateTableTask() {
         jTableTasks.getTableHeader().setFont(new Font("Segoi UI", Font.BOLD, 14));
         jTableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
@@ -441,14 +433,13 @@ public class MainScreen extends javax.swing.JFrame {
 
     }
 
-//MÉTODO PRA INICIALIZAR OS OBJETOS LOCAIS MODELO DE PROJETO E TAREFA
+//MÉTODO PRA INICIALIZAR OS CONTROLLERS DE PROJETO E TAREFA (É CHAMADO NO METODO CONSTRUTOR)
     public void initDataController() {
         projectController = new ProjectController();
         taskController = new TaskController();
     }
 
-//METODO QUE CRIA/INICIA A ESTRUTURA QUE GUARDA ESSES PROJETOS LOCALMENTE, QUE É ESSA LISTA DEFAULT E A TABLE MODEL
-// DEPOIS DE CRIADA, ELA CHAMA A FUNÇÃO QUE VAI POPULAR ESSA LISTA LOCAL
+//METODO QUE CRIA/INICIA A ESTRUTURA QUE GUARDA ESSES PROJETOS LOCALMENTE, QUE É ESSA LISTA E A TABLE MODEL 
     public void initComponentsModel() {
         projectsModel = new DefaultListModel();
         loadProjects();
@@ -473,7 +464,7 @@ public class MainScreen extends javax.swing.JFrame {
         showTableTasks(!tasks.isEmpty());
     }
 
-//MÉTODO QUE PEGA OS PROJETOS DO BD E POPULA A LISTA CRIADA LOCALMENTE (que depois vai ser renderizada pro usuario)
+//PEGA OS PROJETOS DO BD E POPULA A LISTA CRIADA LOCALMENTE (que depois vai ser renderizada pro usuario)
     public void loadProjects() {
         List<Project> projects = projectController.getAll();
         projectsModel.clear();
@@ -485,11 +476,9 @@ public class MainScreen extends javax.swing.JFrame {
         projectsList.setModel(projectsModel);
     }
 
-//metodo que decide qual tela vai ser exibida no panel "main", se a tela vazia ou tela com as tarefas 
+
+//DECIDE QUAL TELA VAI SER VISIVEL, A DE TAREFAS OU A DE 'SEM TAREFAS'
     private void showTableTasks(boolean hasTasks) {
-//se o componente de lista vazia estiver visivel, remove essa visibilidade dele e remove o componente de emptylist do main
-//adiciona o componente de scrollpane que dentro tem a lista de tarefas, deixa visivel e redimensiona de acordo com o tamanho da tela
-//faz o contrario, removendo a lista de tarefas e adicionando a tela de lista vazia
         if (hasTasks) {
             if (emptyTasksList.isVisible()) {
                 emptyTasksList.setVisible(false);

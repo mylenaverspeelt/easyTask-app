@@ -7,7 +7,6 @@ import javax.swing.table.AbstractTableModel;
 import model.Task;
 
 //CLASSE PRA DEFINIR A TABELA DE TAREFAS QUE VAO SER EXIBIDAS
-//ESSA CLASSE É FILHA DESSA DEFAULT, DAI JÁ VEM OS 3 PRIMEIROS METODOS OBRIGATORIOS, AI  SÓ SOBRESCREVE
 public class TaskTableModel extends AbstractTableModel {
 
     String[] columns = {"Name", "Description", "Deadline", "Completed", "Edit", "Delete"};
@@ -19,25 +18,25 @@ public class TaskTableModel extends AbstractTableModel {
         return tasks.size();
     }
 
-// retorna as colunas 
+// retorna o tanto de colunas, que serão as propriedades de cada task
     @Override
     public int getColumnCount() {
         return columns.length;
     }
 
-//metodo pra aparecer os nomes das colunas. é um dos metodos herdados da classe pai
+//metodo pra aparecer os nomes das colunas
     @Override
     public String getColumnName(int columnIndex) {
         return columns[columnIndex];
     }
 
-//metodo pra tornar editavel apenas a coluna 3 que é a do completado
+//metodo pra tornar editavel apenas a coluna 3 que é a do completed
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return columnIndex == 3;
     }
 
-//retorna qual a classe do dado que ta em determinada coluna e retorna o tipo de dado que ele é. Se a lista tiver vazia retorna um objeto, senao retorna o tipo de dado daquela celula especifica (basicamente coloca a opção do usuario dar check na coluna de completed)
+//retorna qual a classe do dado que ta em determinada coluna e retorna o tipo de dado que ele é. Se a lista tiver vazia retorna um objeto, senao retorna o tipo de dado daquela celula especifica, se é booleano, string, etc...
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         if (tasks.isEmpty()) {
@@ -71,7 +70,7 @@ public class TaskTableModel extends AbstractTableModel {
             case 5:
                 return "";
             default:
-                return "Dado não encontrado";
+                return "Not found";
         }
     }
 

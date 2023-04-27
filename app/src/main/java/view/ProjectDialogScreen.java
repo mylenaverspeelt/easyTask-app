@@ -1,10 +1,7 @@
 package view;
 
-//classe projectDialogScreen que extende do javaswing,tem o metodo construtor, o metodo de inicializar os componentes, metodo de click pra salvar um novo projeto(que pega o input do nome e da descriçao e salva no bd).
-//criou-se um project controller no construtor, é ele quem cria um novo objeto projeto pra ser adicionado no BD (olhar na pasta controller).
 import controller.ProjectController;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import model.Project;
 
 public class ProjectDialogScreen extends javax.swing.JDialog {
@@ -35,7 +32,6 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setMaximumSize(null);
         setMinimumSize(null);
 
         header.setBackground(new java.awt.Color(0, 153, 102));
@@ -80,11 +76,6 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         nameLabel.setText("Name");
 
         inputName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        inputName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputNameActionPerformed(evt);
-            }
-        });
 
         inputDescription.setColumns(20);
         inputDescription.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -142,11 +133,7 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inputNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputNameActionPerformed
-
-    }//GEN-LAST:event_inputNameActionPerformed
-
-//QUANDO CLICA NO BOTAO SALVA O NOME E A DESCRIÇAO (OS INPUTS) DO NOVO PROJETO NO BANCO DE DADOS
+// SALVA NOVO PROJETO NO BANCO DE DADOS
     private void headericonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headericonMouseClicked
         try {
             if (!inputName.getText().equals("")){

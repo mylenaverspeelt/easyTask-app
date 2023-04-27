@@ -1,7 +1,5 @@
 package view;
-//metodo construtor, metodo de iniciar os componentes, metodo de salvar uma nova tarefa ao icone ser clicado, metodo pra pegar o id do projeto ao qual a tarefa é referente
 
-//criou-se um task controller no construtor, é ele quem cria um novo objeto task pra ser adicionado no BD (olhar na pasta controller).
 import controller.TaskController;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -179,6 +177,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+// SALVA UMA NOVA TAREFA NO BD
     private void headerIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerIconMouseClicked
 
         try {
@@ -186,7 +185,6 @@ public class TaskDialogScreen extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Tarefa não foi salva pois existem campos obrigatorios a serem preenchidos");
             } else {
                 Task task = new Task();
-//            task.setIdProject(22);
                 task.setIdProject(project.getId());
                 task.setName(inputName.getText());
                 task.setDescription(inputDescription.getText());
@@ -203,7 +201,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            JOptionPane.showMessageDialog(  rootPane, e.getMessage());
 
         }
 
@@ -228,7 +226,6 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TaskDialogScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -262,7 +259,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private java.awt.Scrollbar scrollbar1;
     // End of variables declaration//GEN-END:variables
 
-//METODO PRA PEGAR O ID DO PROJETO (E SETAR NUMA TASK LÁ NO EVENTO DE CLICK)
+// PEGA O PROJETO EM QUESTÃO PRA POSTERIORMENTE (QUANDO FOR SALVAR UMA NOVA TAREFA) ACESSAR OS METODOS DESSE PROJETO, NO CASO O ID
     public void setProject(Project project) {
         this.project = project;
     }

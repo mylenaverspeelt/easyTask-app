@@ -26,7 +26,7 @@ public class ProjectController {
             statement.setDate(4, new java.sql.Date(project.getUpdatedAt().getTime()));
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao salvar o projeto: " + e.getMessage(), e);
+            throw new RuntimeException("Error: Cannot save project. " + e.getMessage(), e);
         } finally {
             ConnectionFactory.closeConnection(connection, statement);
         }
@@ -50,7 +50,7 @@ public class ProjectController {
             statement.setInt(5, project.getId());
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao atualizar o projeto" + e.getMessage(), e);
+            throw new RuntimeException("Error: Cannot upload project. " + e.getMessage(), e);
         }finally {
            ConnectionFactory.closeConnection(connection, statement);
         }
@@ -67,7 +67,7 @@ public class ProjectController {
             statement.setString(1, name);
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao deletar o projeto" + e.getMessage(), e);
+            throw new RuntimeException("Error: Cannot save project. " + e.getMessage(), e);
         } finally {
             ConnectionFactory.closeConnection(connection, statement);
         }
@@ -96,7 +96,7 @@ public class ProjectController {
                 projects.add(project);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao mostrar os projetos" + e.getMessage(), e);
+            throw new RuntimeException("Error: Cannot get projects list. " + e.getMessage(), e);
         } finally {
             ConnectionFactory.closeConnection(connection, statement, resultSet);
         }
